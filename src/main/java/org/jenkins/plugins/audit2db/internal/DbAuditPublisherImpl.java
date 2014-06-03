@@ -117,7 +117,8 @@ public class DbAuditPublisherImpl extends Notifier implements DbAuditPublisher {
 	    getRepository().updateBuildDetails(details);
 	    LOGGER.log(Level.FINE,
 		    "Updated build details with id=" + details.getId());
-	    result = super.perform(build, launcher, listener);
+	    //result = super.perform(build, launcher, listener);
+	    result = true;
 	} catch (final Throwable t) {
 	    LOGGER.log(Level.SEVERE, t.getMessage(), t);
 	}
