@@ -118,6 +118,7 @@ public class DbAuditPublisherImpl extends Notifier implements DbAuditPublisher {
 	    LOGGER.log(Level.FINE,
 		    "Updated build details with id=" + details.getId());
 	    //result = super.perform(build, launcher, listener);
+	    listener.getLogger().println("[audit2db] - Saved build result to database.");
 	    result = true;
 	} catch (final Throwable t) {
 	    LOGGER.log(Level.SEVERE, t.getMessage(), t);
