@@ -12,6 +12,7 @@ import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Notifier;
 import hudson.tasks.Publisher;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
@@ -111,6 +112,14 @@ public class DbAuditPublisherImpl extends Notifier implements DbAuditPublisher {
 	details.setEndDate(new Date(details.getStartDate().getTime()
 		+ details.getDuration()));
 	details.setResult(build.getResult().toString());
+	
+	//save build log if build failed
+	if (build.getResult().toString() == "FAILURE") {
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		build.getLogText().writeLogTo(0, out);
+		byte[] bFile = out.toByteArray();
+		details.setLog(bFile);
+	}
 
 	boolean result = false;
 	try {

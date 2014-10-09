@@ -53,6 +53,7 @@ public class BuildDetailsImpl implements BuildDetails {
     private String result;
     private String userId;
     private String userName;
+    private byte[] log;
     private final List<BuildParameter> parameters = new ArrayList<BuildParameter>();
     private BuildNode node = new BuildNodeImpl();
 
@@ -213,6 +214,20 @@ public class BuildDetailsImpl implements BuildDetails {
 	this.userName = userName;
 
     }
+    
+    /**
+     * @see org.jenkins.plugins.audit2db.model.BuildDetails#getLog()
+     */
+    @Column(nullable = true, unique = false)
+    @Override
+    public byte[] getLog() {
+    	return log;
+    }
+
+    @Override    
+    public void setLog(final byte[] log) {
+    	this.log = log;
+    }
 
     /**
      * @see org.jenkins.plugins.audit2db.model.BuildDetails#getParameters()
@@ -346,12 +361,14 @@ public class BuildDetailsImpl implements BuildDetails {
      *            the id of the user who started the build.
      * @param userName
      *            the name of the user who started the build.
+     * @param log
+     * 			  the log of the build
      * @param parameters
      *            the build parameters (if any).
      */
     public BuildDetailsImpl(final String id, final String name,
 	    final String fullName, final Date startDate, final Date endDate,
-	    final long duration, final String userId, final String userName,
+	    final long duration, final String userId, final String userName, final byte[] log,
 	    final List<BuildParameter> parameters, final BuildNode node) {
 	this.id = id;
 	this.name = name;
@@ -361,6 +378,7 @@ public class BuildDetailsImpl implements BuildDetails {
 	this.duration = duration;
 	this.userId = userId;
 	this.userName = userName;
+	this.log = log;
 	if ((parameters != null) && !parameters.isEmpty()) {
 	    this.parameters.addAll(parameters);
 	}

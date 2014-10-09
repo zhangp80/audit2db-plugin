@@ -48,6 +48,10 @@ public interface BuildDetails {
     String getUserName();
 
     void setUserName(String userName);
+    
+    byte[] getLog();
+    
+    void setLog(byte[] log);
 
     List<BuildParameter> getParameters();
 
